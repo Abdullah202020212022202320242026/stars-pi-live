@@ -1,61 +1,38 @@
-const loginBtn = document.getElementById("login-btn");
-const usernameDiv = document.getElementById("username");
-const statusDiv = document.getElementById("status");
-const giftButtons = document.querySelectorAll(".gift");
+const gifts = [
+  { name: "أهرامات", price: 1000 },
+  { name: "أبو الهول", price: 800 },
+  { name: "برج خليفة", price: 600 },
+  { name: "برج إيفل", price: 400 },
+  { name: "ساعة بيغ بن", price: 200 },
+  { name: "فنجان قهوة", price: 50 }
+];
 
-let currentUser = null;
+const giftList = document.getElementById("giftList");
 
-loginBtn.addEventListener("click", async () => {
-  try {
-    const scopes = ["username", "payments"];
-    Pi.init({ version: "2.0", sandbox: true });
-    Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
-      currentUser = auth.user;
-      usernameDiv.textContent = `مرحباً، ${currentUser.username}`;
-      statusDiv.textContent = "";
-    }).catch(function(error) {
-      statusDiv.textContent = "فشل تسجيل الدخول: " + error.message;
-    });
-  } catch (err) {
-    statusDiv.textContent = "حدث خطأ في تسجيل الدخول.";
-  }
+// رسم الهدايا
+gifts.forEach((gift, index) => {
+  const el = document.createElement("div");
+  el.className = "gift-item";
+  el.innerHTML = `<strong>${gift.name}</strong><br>💰 ${gift.price} Pi`;
+  el.onclick = () => sendGift(index);
+  giftList.appendChild(el);
 });
 
-giftButtons.forEach(button => {
-  button.addEventListener("click", async () => {
-    if (!currentUser) {
-      statusDiv.textContent = "الرجاء تسجيل الدخول أولاً.";
-      return;
-    }
+// محاكاة عداد مشاهدين
+let viewers = Math.floor(Math.random() * 100) + 1;
+const viewerCounter = document.getElementById("viewer-counter");
+viewerCounter.textContent = `👁️ ${viewers}`;
 
-    const amount = parseFloat(button.getAttribute("data-amount"));
-    const giftName = button.getAttribute("data-name");
-    const appShare = (amount * 0.4).toFixed(3);
-    const streamerShare = (amount - appShare).toFixed(3);
+// إرسال هدية
+function sendGift(index) {
+  const gift = gifts[index];
+  const giftPrice = gift.price;
+  const appShare = giftPrice * 0.4;
+  const streamerShare = giftPrice - appShare;
 
-    statusDiv.textContent = `جاري إرسال هدية ${giftName}...`;
+  alert(
+    `🎁 أرسلت "${gift.name}"\nالمبلغ الكلي: ${giftPrice} Pi\nللمذيع: ${streamerShare} Pi\nنصيب التطبيق: ${appShare} Pi`
+  );
 
-    Pi.createPayment({
-      amount: amount.toString(),
-      memo: `هدية ${giftName} - ${streamerShare} للمذيع و ${appShare} للتطبيق`,
-      metadata: { gift: giftName, from: currentUser.username },
-    }, {
-      onReadyForServerApproval: function(paymentId) {
-        statusDiv.textContent = `✅ بانتظار موافقة السيرفر على الدفع: ${paymentId}`;
-      },
-      onReadyForServerCompletion: function(paymentId, txid) {
-        statusDiv.textContent = `🎉 تم الدفع بنجاح! معرف الدفع: ${paymentId}`;
-      },
-      onCancel: function(paymentId) {
-        statusDiv.textContent = "❌ تم إلغاء الدفع.";
-      },
-      onError: function(error, payment) {
-        statusDiv.textContent = "⚠️ حدث خطأ أثناء الدفع.";
-      }
-    });
-  });
-});
-
-function onIncompletePaymentFound(payment) {
-  statusDiv.textContent = `يوجد دفع غير مكتمل: ${payment.identifier}`;
+  // هنا يتم تنفيذ الدفع عبر Pi Network Testnet (لاحقًا سنربطها فعليًا)
 }

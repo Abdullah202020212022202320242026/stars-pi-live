@@ -1,38 +1,34 @@
-const gifts = [
-  { name: "أهرامات", price: 1000 },
-  { name: "أبو الهول", price: 800 },
-  { name: "برج خليفة", price: 600 },
-  { name: "برج إيفل", price: 400 },
-  { name: "ساعة بيغ بن", price: 200 },
-  { name: "فنجان قهوة", price: 50 }
-];
+function sendGift() {
+  const selected = document.getElementById("gift-select").value;
+  showGiftAnimation(selected);
+}
 
-const giftList = document.getElementById("giftList");
+function showGiftAnimation(giftType) {
+  const giftContainer = document.getElementById("gift-animation-container");
+  const giftImg = document.createElement("img");
 
-// رسم الهدايا
-gifts.forEach((gift, index) => {
-  const el = document.createElement("div");
-  el.className = "gift-item";
-  el.innerHTML = `<strong>${gift.name}</strong><br>💰 ${gift.price} Pi`;
-  el.onclick = () => sendGift(index);
-  giftList.appendChild(el);
-});
+  let giftSrc = "";
 
-// محاكاة عداد مشاهدين
-let viewers = Math.floor(Math.random() * 100) + 1;
-const viewerCounter = document.getElementById("viewer-counter");
-viewerCounter.textContent = `👁️ ${viewers}`;
+  switch(giftType) {
+    case "pyramids":
+      giftSrc = "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg";
+      break;
+    case "eiffel":
+      giftSrc = "https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg";
+      break;
+    case "sakura":
+      giftSrc = "https://upload.wikimedia.org/wikipedia/commons/0/0e/Sakura_cherry_blossom.jpg";
+      break;
+    case "pi-icon":
+      giftSrc = "https://cryptologos.cc/logos/pi-network-pi-logo.png?v=029";
+      break;
+  }
 
-// إرسال هدية
-function sendGift(index) {
-  const gift = gifts[index];
-  const giftPrice = gift.price;
-  const appShare = giftPrice * 0.4;
-  const streamerShare = giftPrice - appShare;
+  giftImg.src = giftSrc;
+  giftImg.className = "gift-animation";
+  giftContainer.appendChild(giftImg);
 
-  alert(
-    `🎁 أرسلت "${gift.name}"\nالمبلغ الكلي: ${giftPrice} Pi\nللمذيع: ${streamerShare} Pi\nنصيب التطبيق: ${appShare} Pi`
-  );
-
-  // هنا يتم تنفيذ الدفع عبر Pi Network Testnet (لاحقًا سنربطها فعليًا)
+  setTimeout(() => {
+    giftContainer.removeChild(giftImg);
+  }, 2000); // Remove after animation
 }

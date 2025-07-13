@@ -1,71 +1,44 @@
-const Pi = window.Pi;
-
-async function sendGift(giftId, totalAmount) {
-  const appShare = (totalAmount * 0.40).toFixed(2);  // 40%
-  const streamerShare = (totalAmount * 0.60).toFixed(2);  // 60%
-
-  try {
-    const payment = await Pi.createPayment({
-      amount: totalAmount.toString(),
-      memo: `Gift: ${giftId}`,
-      metadata: {
-        giftId: giftId,
-        appShare,
-        streamerShare
-      }
-    });
-
-    payment.onReadyForServerApproval((paymentId) => {
-      console.log("🔁 Ready for approval:", paymentId);
-      // يمكنك إرسال paymentId إلى الخادم هنا إن أردت
-    });
-
-    payment.onReadyForServerCompletion((paymentId, txid) => {
-      console.log("✅ Payment completed:", txid);
-      showGiftAnimation(giftId);
-      alert(`🎉 تم إرسال الهدية! 
-      
-      💰 المبلغ الكامل: ${totalAmount} Pi
-      🎤 للمذيع: ${streamerShare} Pi
-      🏛️ للتطبيق: ${appShare} Pi`);
-    });
-
-    payment.onCancel(() => {
-      alert("❌ تم إلغاء الدفع من قبل المستخدم.");
-    });
-
-    payment.onError((error) => {
-      console.error("🚨 خطأ أثناء الدفع:", error);
-      alert("🚨 حدث خطأ أثناء عملية الدفع.");
-    });
-
-  } catch (error) {
-    console.error("🚨 فشل إنشاء عملية الدفع:", error);
-    alert("❗ تعذر بدء الدفع. تأكد من تسجيل الدخول في Pi Network.");
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 
-function showGiftAnimation(giftId) {
-  const area = document.getElementById('animation-area');
-  area.innerHTML = "";
-
-  const img = document.createElement('img');
-  img.src = getGiftImage(giftId);
-  img.alt = giftId;
-  img.style.width = "150px";
-  img.style.animation = "bounce 2s infinite";
-  area.appendChild(img);
+.container {
+  max-width: 600px;
+  margin: auto;
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ffcc00;
 }
 
-function getGiftImage(giftId) {
-  switch (giftId) {
-    case "pyramids":
-      return "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg";
-    case "tower":
-      return "https://upload.wikimedia.org/wikipedia/commons/a/af/Tour_Eiffel_Wikimedia_Commons.jpg";
-    case "flower":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Garden_rose.jpg/800px-Garden_rose.jpg";
-    default:
-      return "";
-  }
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#login-btn {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+.gift {
+  background-color: #444;
+  color: #fff;
+}
+
+.gift:hover {
+  background-color: #666;
+}
+
+#status {
+  margin-top: 20px;
+  font-weight: bold;
 }

@@ -5,19 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>نجوم باي لايف</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <div class="live-container">
-    <h1>🎥 البث المباشر</h1>
-    <div id="video-placeholder">هنا سيكون البث المباشر (تجريبي)</div>
+  <header>
+    <h1>🎥 نجوم باي لايف</h1>
+    <button id="pi-login">تسجيل الدخول بـ Pi</button>
+  </header>
 
-    <button id="show-gifts">🎁 عرض الهدايا</button>
+  <main>
+    <div class="stream-area">
+      <p>هنا يتم عرض البث المباشر</p>
+    </div>
 
-    <div id="gifts-container" class="hidden"></div>
-
-    <!-- حاوية لعرض الهدية المتحركة -->
-    <div id="gift-animation" class="gift-fly hidden"></div>
-  </div>
+    <div class="gifts-section">
+      <h2>🎁 الهدايا</h2>
+      <div class="gifts-grid">
+        <div class="gift" data-name="الأهرامات" data-price="500">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg" alt="الأهرامات">
+          <p>الأهرامات - 500 Pi</p>
+        </div>
+        <div class="gift" data-name="أبو الهول" data-price="300">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Great_Sphinx_of_Giza_-_20080716a.jpg/640px-Great_Sphinx_of_Giza_-_20080716a.jpg" alt="أبو الهول">
+          <p>أبو الهول - 300 Pi</p>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <script src="script.js"></script>
 </body>

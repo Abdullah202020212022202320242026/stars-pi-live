@@ -1,29 +1,29 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stars Pi Live</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <div id="app">
-    <h1>🎥 Stars Pi Live 🎥</h1><div id="auth">
-  <button id="login-button">تسجيل الدخول بـ Pi</button>
-  <p id="user-name"></p>
-</div>
+  <div class="container">
+    <h1>🎥 Stars Pi Live</h1>
+    <button id="login-btn">تسجيل الدخول بـ Pi</button>
+    <div id="username"></div>
 
-<div id="gift-section" style="display:none;">
-  <h2>إرسال هدية للمذيع</h2>
-  <select id="gift-select">
-    <option value="1">🎁 أبو الهول - 1 Pi</option>
-    <option value="5">🎁 برج إيفل - 5 Pi</option>
-    <option value="10">🎁 تمثال الحرية - 10 Pi</option>
-    <option value="1000">🏰 قصر فاخر - 1000 Pi</option>
-  </select>
-  <button id="send-gift-button">إرسال الهدية</button>
-  <p id="status"></p>
-</div>
+    <h2>🎁 أرسل هدية أثناء البث</h2>
+    <div class="gifts">
+      <button class="gift" data-amount="1" data-name="أهرامات">أهرامات - 1π</button>
+      <button class="gift" data-amount="5" data-name="أبو الهول">أبو الهول - 5π</button>
+      <button class="gift" data-amount="10" data-name="برج خليفة">برج خليفة - 10π</button>
+      <button class="gift" data-amount="1000" data-name="مجرة النجوم">🌌 مجرة النجوم - 1000π</button>
+    </div>
 
-  </div>  <script src="script.js"></script></body>
+    <div id="status"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>

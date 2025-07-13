@@ -1,29 +1,44 @@
 body {
-  background-color: #111;
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
   color: #fff;
-  font-family: sans-serif;
   text-align: center;
   padding: 20px;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ffcc00;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 12px 20px;
   margin: 10px;
   border: none;
   border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
-  background-color: #ffdd57;
-  color: #000;
-  font-weight: bold;
 }
 
-#animation-area {
-  margin-top: 30px;
-  height: 200px;
+#login-btn {
+  background-color: #ffcc00;
+  color: #000;
+}
+
+.gift {
+  background-color: #444;
+  color: #fff;
+}
+
+.gift:hover {
+  background-color: #666;
+}
+
+#status {
+  margin-top: 20px;
+  font-weight: bold;
 }

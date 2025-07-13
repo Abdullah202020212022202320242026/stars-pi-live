@@ -1,20 +1,36 @@
 const gifts = [
-  { name: "الأهرامات", price: 500, emoji: "🗿" },
-  { name: "أبو الهول", price: 800, emoji: "🦁" },
-  { name: "برج إيفل", price: 600, emoji: "🗼" },
-  { name: "تمثال الحرية", price: 650, emoji: "🗽" },
-  { name: "برج خليفة", price: 700, emoji: "🏙️" }
+  { name: "الأهرامات", price: 500, emoji: "🗿" }
 ];
 
+const giftsContainer = document.getElementById("gifts-container");
+const giftAnimation = document.getElementById("gift-animation");
+
+// عرض قائمة الهدايا
 document.getElementById("show-gifts").addEventListener("click", () => {
-  const container = document.getElementById("gifts-container");
-  container.innerHTML = "";
+  giftsContainer.innerHTML = "";
 
   gifts.forEach(gift => {
-    const giftElement = document.createElement("div");
-    giftElement.innerHTML = `${gift.emoji} <strong>${gift.name}</strong> — ${gift.price} Pi`;
-    container.appendChild(giftElement);
+    const button = document.createElement("button");
+    button.textContent = `${gift.emoji} ${gift.name} — ${gift.price} Pi`;
+    button.addEventListener("click", () => sendGift(gift));
+    giftsContainer.appendChild(button);
   });
 
-  container.classList.toggle("hidden");
+  giftsContainer.classList.toggle("hidden");
 });
+
+// إرسال الهدية وتحريكها
+function sendGift(gift) {
+  giftAnimation.innerHTML = `${gift.emoji}<br><span style="font-size:18px">${gift.name}</span>`;
+  giftAnimation.classList.remove("hidden");
+
+  // إعادة تشغيل الأنيميشن
+  giftAnimation.classList.remove("gift-fly");
+  void giftAnimation.offsetWidth;
+  giftAnimation.classList.add("gift-fly");
+
+  // إخفاء بعد 3 ثواني
+  setTimeout(() => {
+    giftAnimation.classList.add("hidden");
+  }, 3000);
+}

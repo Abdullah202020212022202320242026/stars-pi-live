@@ -8,20 +8,23 @@
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🎥 Stars Pi Live</h1>
-    <button id="login-btn">تسجيل الدخول بـ Pi</button>
-    <div id="username"></div>
+  <div class="app-container">
+    <h1>🌟 Stars Pi Live 🌟</h1>
 
-    <h2>🎁 أرسل هدية أثناء البث</h2>
-    <div class="gifts">
-      <button class="gift" data-amount="1" data-name="أهرامات">أهرامات - 1π</button>
-      <button class="gift" data-amount="5" data-name="أبو الهول">أبو الهول - 5π</button>
-      <button class="gift" data-amount="10" data-name="برج خليفة">برج خليفة - 10π</button>
-      <button class="gift" data-amount="1000" data-name="مجرة النجوم">🌌 مجرة النجوم - 1000π</button>
+    <!-- بث مباشر -->
+    <div class="live-container">
+      <div class="video-frame">
+        <p class="live-tag">🔴 Live</p>
+        <div id="viewer-counter">👁️ 0</div>
+        <div class="stream-content">هنا يظهر البث المباشر</div>
+      </div>
     </div>
 
-    <div id="status"></div>
+    <!-- قائمة الهدايا -->
+    <div class="gift-section">
+      <h2>🎁 أرسل هدية</h2>
+      <div class="gift-list" id="giftList"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>

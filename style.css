@@ -1,36 +1,26 @@
-const gifts = [
-  { name: "الأهرامات", price: 500, emoji: "🗿" }
-];
+// Pi Login
+const scopes = ['username', 'payments'];
 
-const giftsContainer = document.getElementById("gifts-container");
-const giftAnimation = document.getElementById("gift-animation");
-
-// عرض قائمة الهدايا
-document.getElementById("show-gifts").addEventListener("click", () => {
-  giftsContainer.innerHTML = "";
-
-  gifts.forEach(gift => {
-    const button = document.createElement("button");
-    button.textContent = `${gift.emoji} ${gift.name} — ${gift.price} Pi`;
-    button.addEventListener("click", () => sendGift(gift));
-    giftsContainer.appendChild(button);
-  });
-
-  giftsContainer.classList.toggle("hidden");
+document.getElementById('pi-login').addEventListener('click', async () => {
+  try {
+    const result = await window.Pi.authenticate(scopes, onIncompletePaymentFound);
+    alert(`مرحباً ${result.user.username}`);
+    console.log("User info:", result.user);
+  } catch (error) {
+    console.error("خطأ في تسجيل الدخول:", error);
+  }
 });
 
-// إرسال الهدية وتحريكها
-function sendGift(gift) {
-  giftAnimation.innerHTML = `${gift.emoji}<br><span style="font-size:18px">${gift.name}</span>`;
-  giftAnimation.classList.remove("hidden");
-
-  // إعادة تشغيل الأنيميشن
-  giftAnimation.classList.remove("gift-fly");
-  void giftAnimation.offsetWidth;
-  giftAnimation.classList.add("gift-fly");
-
-  // إخفاء بعد 3 ثواني
-  setTimeout(() => {
-    giftAnimation.classList.add("hidden");
-  }, 3000);
+function onIncompletePaymentFound(payment) {
+  console.log('تم العثور على دفعة غير مكتملة:', payment);
 }
+
+// Click gift event (display selection for future payment)
+document.querySelectorAll('.gift').forEach((gift) => {
+  gift.addEventListener('click', () => {
+    const name = gift.getAttribute('data-name');
+    const price = gift.getAttribute('data-price');
+    alert(`🎁 اخترت هدية: ${name} بقيمة ${price} Pi (قريباً سيتم تنفيذ الدفع!)`);
+    // لاحقًا: تنفيذ عملية الدفع عبر Pi SDK
+  });
+});

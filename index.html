@@ -5,28 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stars Pi Live</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <div class="app-container">
-    <h1>🌟 Stars Pi Live 🌟</h1>
-
-    <!-- بث مباشر -->
-    <div class="live-container">
-      <div class="video-frame">
-        <p class="live-tag">🔴 Live</p>
-        <div id="viewer-counter">👁️ 0</div>
-        <div class="stream-content">هنا يظهر البث المباشر</div>
-      </div>
-    </div>
-
-    <!-- قائمة الهدايا -->
-    <div class="gift-section">
-      <h2>🎁 أرسل هدية</h2>
-      <div class="gift-list" id="giftList"></div>
+  <div id="live-container">
+    <video id="live-video" autoplay muted></video>
+    <div id="gift-animation-container"></div>
+    <div id="send-gift-panel">
+      <select id="gift-select">
+        <option value="pyramids">🎁 Egyptian Pyramids (1000 Pi)</option>
+        <option value="eiffel">🎁 Eiffel Tower (750 Pi)</option>
+        <option value="sakura">🎁 Sakura Tree (500 Pi)</option>
+        <option value="pi-icon">🎁 Pi Icon (300 Pi)</option>
+        <!-- أضف المزيد لاحقًا -->
+      </select>
+      <button onclick="sendGift()">Send Gift</button>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>

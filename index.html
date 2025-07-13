@@ -1,25 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>نجوم Pi Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stars Pi Live</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🎥 Live Stream - نجوم Pi Live</h1>
+  <div id="app">
+    <h1>🎥 Stars Pi Live 🎥</h1><div id="auth">
+  <button id="login-button">تسجيل الدخول بـ Pi</button>
+  <p id="user-name"></p>
+</div>
 
-    <div id="gift-section">
-      <button onclick="sendGift('pyramids', 1000)">🎁 أرسل الأهرامات (1000 Pi)</button>
-      <button onclick="sendGift('tower', 500)">🎁 أرسل برج إيفل (500 Pi)</button>
-      <button onclick="sendGift('flower', 10)">🎁 أرسل وردة (10 Pi)</button>
-    </div>
+<div id="gift-section" style="display:none;">
+  <h2>إرسال هدية للمذيع</h2>
+  <select id="gift-select">
+    <option value="1">🎁 أبو الهول - 1 Pi</option>
+    <option value="5">🎁 برج إيفل - 5 Pi</option>
+    <option value="10">🎁 تمثال الحرية - 10 Pi</option>
+    <option value="1000">🏰 قصر فاخر - 1000 Pi</option>
+  </select>
+  <button id="send-gift-button">إرسال الهدية</button>
+  <p id="status"></p>
+</div>
 
-    <div id="animation-area"></div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+  </div>  <script src="script.js"></script></body>
 </html>

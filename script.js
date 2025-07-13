@@ -1,44 +1,61 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #1a1a1a;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-}
+const loginBtn = document.getElementById("login-btn");
+const usernameDiv = document.getElementById("username");
+const statusDiv = document.getElementById("status");
+const giftButtons = document.querySelectorAll(".gift");
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  background-color: #2a2a2a;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px #ffcc00;
-}
+let currentUser = null;
 
-button {
-  padding: 12px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
+loginBtn.addEventListener("click", async () => {
+  try {
+    const scopes = ["username", "payments"];
+    Pi.init({ version: "2.0", sandbox: true });
+    Pi.authenticate(scopes, onIncompletePaymentFound).then(function(auth) {
+      currentUser = auth.user;
+      usernameDiv.textContent = `مرحباً، ${currentUser.username}`;
+      statusDiv.textContent = "";
+    }).catch(function(error) {
+      statusDiv.textContent = "فشل تسجيل الدخول: " + error.message;
+    });
+  } catch (err) {
+    statusDiv.textContent = "حدث خطأ في تسجيل الدخول.";
+  }
+});
 
-#login-btn {
-  background-color: #ffcc00;
-  color: #000;
-}
+giftButtons.forEach(button => {
+  button.addEventListener("click", async () => {
+    if (!currentUser) {
+      statusDiv.textContent = "الرجاء تسجيل الدخول أولاً.";
+      return;
+    }
 
-.gift {
-  background-color: #444;
-  color: #fff;
-}
+    const amount = parseFloat(button.getAttribute("data-amount"));
+    const giftName = button.getAttribute("data-name");
+    const appShare = (amount * 0.4).toFixed(3);
+    const streamerShare = (amount - appShare).toFixed(3);
 
-.gift:hover {
-  background-color: #666;
-}
+    statusDiv.textContent = `جاري إرسال هدية ${giftName}...`;
 
-#status {
-  margin-top: 20px;
-  font-weight: bold;
+    Pi.createPayment({
+      amount: amount.toString(),
+      memo: `هدية ${giftName} - ${streamerShare} للمذيع و ${appShare} للتطبيق`,
+      metadata: { gift: giftName, from: currentUser.username },
+    }, {
+      onReadyForServerApproval: function(paymentId) {
+        statusDiv.textContent = `✅ بانتظار موافقة السيرفر على الدفع: ${paymentId}`;
+      },
+      onReadyForServerCompletion: function(paymentId, txid) {
+        statusDiv.textContent = `🎉 تم الدفع بنجاح! معرف الدفع: ${paymentId}`;
+      },
+      onCancel: function(paymentId) {
+        statusDiv.textContent = "❌ تم إلغاء الدفع.";
+      },
+      onError: function(error, payment) {
+        statusDiv.textContent = "⚠️ حدث خطأ أثناء الدفع.";
+      }
+    });
+  });
+});
+
+function onIncompletePaymentFound(payment) {
+  statusDiv.textContent = `يوجد دفع غير مكتمل: ${payment.identifier}`;
 }

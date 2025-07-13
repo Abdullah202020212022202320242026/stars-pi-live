@@ -1,56 +1,20 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background-color: #000;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+const gifts = [
+  { name: "الأهرامات", price: 500, emoji: "🗿" },
+  { name: "أبو الهول", price: 800, emoji: "🦁" },
+  { name: "برج إيفل", price: 600, emoji: "🗼" },
+  { name: "تمثال الحرية", price: 650, emoji: "🗽" },
+  { name: "برج خليفة", price: 700, emoji: "🏙️" }
+];
 
-.stream-container {
-  position: relative;
-  width: 360px;
-  height: 640px;
-  border: 3px solid #8247e5;
-  border-radius: 16px;
-  overflow: hidden;
-}
+document.getElementById("show-gifts").addEventListener("click", () => {
+  const container = document.getElementById("gifts-container");
+  container.innerHTML = "";
 
-#stream-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  gifts.forEach(gift => {
+    const giftElement = document.createElement("div");
+    giftElement.innerHTML = `${gift.emoji} <strong>${gift.name}</strong> — ${gift.price} Pi`;
+    container.appendChild(giftElement);
+  });
 
-button {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #8247e5;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.gift-display {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 48px;
-  display: none;
-  animation: pop 1s ease-in-out;
-}
-
-@keyframes pop {
-  0% { transform: scale(0.5) translateX(-50%); opacity: 0; }
-  50% { transform: scale(1.2) translateX(-50%); opacity: 1; }
-  100% { transform: scale(1) translateX(-50%); opacity: 0; }
-}
+  container.classList.toggle("hidden");
+});

@@ -1,37 +1,24 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>نجوم باي لايف</title>
+  <title>نجوم Pi Live</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 </head>
 <body>
-  <header>
-    <h1>🎥 نجوم باي لايف</h1>
-    <button id="pi-login">تسجيل الدخول بـ Pi</button>
-  </header>
+  <div class="container">
+    <h1>🎥 Live Stream - نجوم Pi Live</h1>
 
-  <main>
-    <div class="stream-area">
-      <p>هنا يتم عرض البث المباشر</p>
+    <div id="gift-section">
+      <button onclick="sendGift('pyramids', 1000)">🎁 أرسل الأهرامات (1000 Pi)</button>
+      <button onclick="sendGift('tower', 500)">🎁 أرسل برج إيفل (500 Pi)</button>
+      <button onclick="sendGift('flower', 10)">🎁 أرسل وردة (10 Pi)</button>
     </div>
 
-    <div class="gifts-section">
-      <h2>🎁 الهدايا</h2>
-      <div class="gifts-grid">
-        <div class="gift" data-name="الأهرامات" data-price="500">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg" alt="الأهرامات">
-          <p>الأهرامات - 500 Pi</p>
-        </div>
-        <div class="gift" data-name="أبو الهول" data-price="300">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Great_Sphinx_of_Giza_-_20080716a.jpg/640px-Great_Sphinx_of_Giza_-_20080716a.jpg" alt="أبو الهول">
-          <p>أبو الهول - 300 Pi</p>
-        </div>
-      </div>
-    </div>
-  </main>
+    <div id="animation-area"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>

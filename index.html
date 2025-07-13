@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pi Live Stream</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>نجوم باي لايف</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="stream-container">
-    <video autoplay muted loop id="stream-video">
-      <source src="your-stream-video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+  <div class="live-container">
+    <h1>🎥 البث المباشر</h1>
+    <div id="video-placeholder">هنا سيكون البث المباشر (تجريبي)</div>
 
-    <div class="gift-display" id="giftDisplay">🎁</div>
+    <button id="show-gifts">🎁 عرض الهدايا</button>
 
-    <button onclick="sendGift()">Send Gift</button>
+    <div id="gifts-container" class="hidden"></div>
   </div>
 
   <script src="script.js"></script>
